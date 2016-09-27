@@ -5,6 +5,7 @@
  */
 package streaming.test;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -14,6 +15,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import streaming.entity.Film;
+import streaming.entity.Film_;
 
 /**
  *
@@ -89,7 +91,7 @@ public class RequetesTest {
         
         
          long l = (long) em.createQuery( "SELECT COUNT(e) FROM Episode e JOIN e.saison sa JOIN sa.serie se     WHERE se.titre ='Dexter' AND sa.numSaison = 8 ")
-                .getSingleResult();
+                .getSingleResult();//WHERE e.saison.serie.titre ='Dexter' AND e.saison.numsaison=8
 
         Assert.assertEquals(12L, l);
     }
@@ -97,7 +99,7 @@ public class RequetesTest {
     @Test
     public void test25() {
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
-         long l = (long) em.createQuery( "SELECT COUNT(s) FROM Saison s JOIN s.serie se     WHERE se.titre ='Dexter'  ")
+         long l = (long) em.createQuery( "SELECT COUNT(s) FROM Saison s JOIN s.serie se     WHERE se.titre ='Dexter'  ")//SELECT COUNT(s) FROM Saison s      WHERE s.serie.titre ='Dexter' 
                 .getSingleResult();
 
         Assert.assertEquals(8L, l);
@@ -115,10 +117,22 @@ public class RequetesTest {
     @Test
     public void test21() {
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
-        long l = (long) em.createQuery( "SELECT COUNT(f) FROM Film f JOIN f.realisateurs r JOIN f.acteurs s WHERE r.nom = 'Coen'  AND s.nom='Buscemi' ")
+        long l = (long) em.createQuery( "SELECT COUNT(f) FROM Film f JOIN f.realisateurs r1 JOIN f.realisateurs r2 JOIN f.acteurs a WHERE r1.prenom = 'Joel'  AND r1.nom='Coen' AND r2.prenom ='Ethan' AND r2.nom ='Coen' AND a.nom ='Buscemi' AND a.prenom ='Steve' ")
                 .getSingleResult();
+        Assert.assertEquals(2, l);
+        
+        
+        
+        
+        /*
+           List<Film>films =   em.createQuery("Select f FROM Film f JOIN f.realisateurs r WHERE r.nom'Coen r.prenom = ' ' INTERSECT  " )
+                    Assert.assertEquals(2L, films.size());
+        */
+        
+        
+        
 
-        Assert.assertEquals(4, l);
+        
         
         
         
