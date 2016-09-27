@@ -32,7 +32,7 @@ Le nombre total de liens pour nos films policiers américains
 
 Le nombre totals de liens pour nos films d'horreur interprétés par Polanski
 
-Tous les films d'horreur, sauf ceux interprétés par Polanski ( utiliser UNION ou MINUS ou INTERSECT )
+Tous les films d'horreur, sauf ceux interprétés par Polanski ( utiliser UNION ou EXCEPT ou INTERSECT )
 
 Parmi tous les films, uniquement ceux interprétés par Polanski  ( utiliser UNION ou MINUS ou INTERSECT )
 

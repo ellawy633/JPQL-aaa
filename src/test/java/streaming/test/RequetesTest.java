@@ -51,7 +51,7 @@ public class RequetesTest {
     public void test35() {
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
         List l = (List) em.createQuery( "SELECT f FROM Film f JOIN f.genre r  WHERE r.nom = 'Horreur'  EXCEPT SELECT f FROM Film f JOIN f.acteurs a  WHERE   a.nom = 'Polanski' ")
-                .getResultList();
+                .getResultList();//WHERE f.genre.nom.nom = 'Horreur'
         
         long k = (long) l.size();
 
